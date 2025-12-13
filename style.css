@@ -10,8 +10,10 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f5f5f5;
+    /* Utilisation d'une police plus moderne pour un rendu professionnel */
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    /* Arrière‑plan très clair pour un rendu plus professionnel */
+    background-color: #fafafa;
     color: #333;
     line-height: 1.6;
 }
@@ -19,24 +21,30 @@ body {
 header {
     background-color: #222;
     color: #fff;
-    padding: 1rem;
+    /* Ajout d’une marge interne plus généreuse pour un rendu haut de gamme */
+    padding: 1.5rem;
+    /* Ombre douce pour détacher le header du fond */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
     margin: 0;
-    font-size: 2rem;
+    font-size: 2.25rem;
+    font-weight: 600;
     text-align: center;
 }
 
 nav {
     margin-top: 0.5rem;
+    /* Séparation visuelle subtile entre le titre et la navigation */
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 1rem;
+    gap: 0.75rem;
     padding: 0;
     margin: 0;
 }
@@ -46,19 +54,24 @@ nav {
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 4px;
-    transition: background-color 0.2s ease;
+    font-weight: 500;
+    display: inline-block;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .nav-links li a:hover {
     background-color: #444;
+    transform: translateY(-2px);
 }
 
 main {
-    padding: 1rem;
+    padding: 2rem;
     max-width: 900px;
-    margin: 0 auto;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 1.5rem auto;
+    background-color: #ffffff;
+    /* Arrondi et ombrage plus prononcé pour un aspect élégant */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 footer {
@@ -67,6 +80,7 @@ footer {
     text-align: center;
     padding: 1rem;
     margin-top: 2rem;
+    font-size: 0.9rem;
 }
 
 /* Section styles */
@@ -84,20 +98,76 @@ footer {
 }
 
 select {
-    padding: 0.3rem;
+    padding: 0.5rem 0.75rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+    background-color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+}
+
+select:focus {
+    outline: none;
+    border-color: #888;
+}
+
+/* Apparence du sélecteur dans les thèmes sombres */
+body.drae select,
+body.v3 select {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #eee;
+    border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 /* Character list */
 #character-list {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 #character-list li {
-    padding: 0.5rem;
-    border-bottom: 1px solid #eee;
+    display: block;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+    /* Bordure colorée à gauche basée sur la couleur du texte de l'interprète */
+    border-left: 5px solid currentColor;
+    border-radius: 6px;
+    /* Fond clair pour un rendu épuré sur pages claires */
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    /* Les couleurs de texte sont héritées des classes de performer, éviter de les écraser ici */
+    /* Pas de définition de couleur pour ne pas neutraliser les couleurs d'interprète */
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    cursor: default;
+}
+
+/* Effet de survol pour toutes les listes de personnages */
+#character-list li:hover {
+    background-color: #f9f9f9;
+    transform: translateX(3px);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajustement des listes pour les thèmes sombres */
+body.drae #character-list li,
+body.v3 #character-list li {
+    background-color: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Survol dans les thèmes sombres */
+body.drae #character-list li:hover,
+body.v3 #character-list li:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateX(3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Ajout de l'ombrage et de la police sur tous les titres */
+h1, h2, h3 {
+    font-weight: 600;
 }
 
 /* Performer styles */
@@ -188,22 +258,25 @@ body.drae nav .nav-links a:hover {
     background-color: #7e57c2;
 }
 body.drae #character-list li {
-    border-bottom-color: #673ab7;
+    /* Couleur de bordure personnalisée sur fond violet n'est plus nécessaire, le style de carte gère la bordure via currentColor */
 }
 
 /* Ajuster l'apparence du conteneur principal pour les pages sombres (DRAE et V3).
    La boîte principale adopte un fond semi-transparent foncé et des bords
    ombragés pour améliorer la lisibilité sur les arrière‑plans très colorés. */
 body.drae main {
-    background-color: rgba(0, 0, 0, 0.2);
+    /* Conteneur principal semi‑opaque sur fond sombre, avec bordure légère pour un rendu professionnel */
+    background-color: rgba(0, 0, 0, 0.45);
     color: #eee;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 body.v3 main {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.45);
     color: #eee;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
 /* Danganronpa V3 – Killing Harmony : palette sombre et turquoise */
@@ -222,5 +295,5 @@ body.v3 nav .nav-links a:hover {
     background-color: #00796b;
 }
 body.v3 #character-list li {
-    border-bottom-color: #004d40;
+    /* Couleur de bordure spécifique supprimée ; la bordure de gauche est basée sur la couleur du texte */
 }
