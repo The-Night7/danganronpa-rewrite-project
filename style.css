@@ -133,3 +133,94 @@ select {
         align-items: center;
     }
 }
+
+/*
+ * Overrides de style par jeu
+ * Chaque page de réécriture (DR1, DR2, DRAE, V3) possède une classe de corps
+ * correspondante afin d'appliquer un thème visuel inspiré de l'ambiance de
+ * chaque épisode de la série. Ces styles n'affectent que les pages qui
+ * déclarent explicitement la classe sur l'élément <body>.
+ */
+
+/* Danganronpa 1 – Trigger Happy Havoc : dégradé rose clair et header fuchsia */
+body.dr1 {
+    background: linear-gradient(180deg, #ffe6f2 0%, #fffef9 100%);
+}
+body.dr1 header {
+    background-color: #e91e63;
+}
+body.dr1 nav .nav-links a {
+    background-color: #f8bbd0;
+    color: #333;
+}
+body.dr1 nav .nav-links a:hover {
+    background-color: #f48fb1;
+}
+
+/* Danganronpa 2 – Goodbye Despair : ambiance tropicale turquoise/jaune */
+body.dr2 {
+    background: linear-gradient(180deg, #e0f7fa 0%, #fffff8 100%);
+}
+body.dr2 header {
+    background-color: #009688;
+}
+body.dr2 nav .nav-links a {
+    background-color: #b2dfdb;
+    color: #333;
+}
+body.dr2 nav .nav-links a:hover {
+    background-color: #80cbc4;
+}
+
+/* Danganronpa Another Episode – Ultra Despair Girls : thèmes sombres et violets */
+body.drae {
+    background: linear-gradient(180deg, #4527a0 0%, #311b92 100%);
+    color: #eee;
+}
+body.drae header {
+    background-color: #6a1b9a;
+}
+body.drae nav .nav-links a {
+    background-color: #9575cd;
+    color: #fff;
+}
+body.drae nav .nav-links a:hover {
+    background-color: #7e57c2;
+}
+body.drae #character-list li {
+    border-bottom-color: #673ab7;
+}
+
+/* Ajuster l'apparence du conteneur principal pour les pages sombres (DRAE et V3).
+   La boîte principale adopte un fond semi-transparent foncé et des bords
+   ombragés pour améliorer la lisibilité sur les arrière‑plans très colorés. */
+body.drae main {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #eee;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+body.v3 main {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #eee;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Danganronpa V3 – Killing Harmony : palette sombre et turquoise */
+body.v3 {
+    background: linear-gradient(180deg, #263238 0%, #37474f 100%);
+    color: #eee;
+}
+body.v3 header {
+    background-color: #00695c;
+}
+body.v3 nav .nav-links a {
+    background-color: #009688;
+    color: #fff;
+}
+body.v3 nav .nav-links a:hover {
+    background-color: #00796b;
+}
+body.v3 #character-list li {
+    border-bottom-color: #004d40;
+}
