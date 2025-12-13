@@ -101,6 +101,11 @@ select {
 }
 
 /* Performer styles */
+.nightofkarma {
+    color: blueviolet;
+    font-weight: bold;
+}
+
 .bl00d-samurai {
     color: #e91e63;
     font-weight: bold;
