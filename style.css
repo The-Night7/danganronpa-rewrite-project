@@ -1,299 +1,417 @@
 /*
- * Feuille de style principale pour le projet ReDanganronpa.
- * Elle définit la typographie générale, la mise en page et les
- * couleurs associées à chaque interprète. Les classes de couleur
- * permettent d'identifier rapidement le participant attribué à un
- * personnage.
+ * ReDanganronpa - Style Overhaul
+ * Thèmes : Psycho-Pop, Digital Tropical, Urban Horror, Psycho-Cool.
  */
 
-/* Base layout */
+:root {
+    /* Couleurs des interprètes (Conservées) */
+    --color-nightofkarma: #8a2be2;
+    --color-bl00d-samurai: #e91e63;
+    --color-eisaku: #3f51b5;
+    --color-papa-ours: #4caf50;
+    --color-hyozan: #ff9800;
+
+    /* Variables globales */
+    --font-main: "Segoe UI", "Roboto", Helvetica, Arial, sans-serif;
+    --font-mono: "Courier New", Courier, monospace; /* Pour DR2/V3 */
+    --shadow-hard: 4px 4px 0px rgba(0,0,0,0.8); /* Ombre "Pop Art" dure */
+}
+
+/* --- Base Reset & Layout --- */
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
-    /* Utilisation d'une police plus moderne pour un rendu professionnel */
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    /* Arrière‑plan très clair pour un rendu plus professionnel */
+    font-family: var(--font-main);
     background-color: #fafafa;
     color: #333;
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
+/* Header commun retravaillé */
 header {
-    background-color: #222;
+    background-color: #111;
     color: #fff;
-    /* Ajout d’une marge interne plus généreuse pour un rendu haut de gamme */
-    padding: 1.5rem;
-    /* Ombre douce pour détacher le header du fond */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 4px solid #000;
+    position: relative;
+    z-index: 10;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.25rem;
-    font-weight: 600;
-    text-align: center;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+    text-shadow: 2px 2px 0 #000;
 }
 
+/* Navigation style "Boutons de jeu" */
 nav {
-    margin-top: 0.5rem;
-    /* Séparation visuelle subtile entre le titre et la navigation */
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin-top: 1rem;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 0.75rem;
+    flex-wrap: wrap;
+    gap: 10px;
     padding: 0;
-    margin: 0;
 }
 
 .nav-links li a {
     color: #fff;
     text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    font-weight: 500;
+    padding: 0.5rem 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.1);
+    border: 2px solid transparent;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Effet rebond */
     display: inline-block;
-    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .nav-links li a:hover {
-    background-color: #444;
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.05);
+    background: #fff;
+    color: #000;
+    box-shadow: 0 5px 15px rgba(255,255,255,0.3);
 }
 
+/* Main Container */
 main {
-    padding: 2rem;
-    max-width: 900px;
-    margin: 1.5rem auto;
-    background-color: #ffffff;
-    /* Arrondi et ombrage plus prononcé pour un aspect élégant */
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    max-width: 950px;
+    margin: 2rem auto;
+    background-color: #fff;
+    border: 3px solid #000;
+    box-shadow: var(--shadow-hard);
+    position: relative;
 }
 
 footer {
-    background-color: #222;
-    color: #fff;
+    background-color: #111;
+    color: #888;
     text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
-    font-size: 0.9rem;
+    padding: 2rem;
+    margin-top: 3rem;
+    font-size: 0.85rem;
+    border-top: 4px solid #000;
 }
 
-/* Section styles */
-.intro p {
-    margin-bottom: 1rem;
-}
+footer a { color: #fff; text-decoration: underline; }
 
-/* Filter dropdown */
+/* --- Éléments d'interface --- */
+
+/* Filtres */
 .filter {
-    margin-bottom: 1rem;
-}
-
-.filter label {
-    margin-right: 0.5rem;
+    background: #f0f0f0;
+    padding: 1rem;
+    border: 2px solid #000;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    font-weight: bold;
 }
 
 select {
-    padding: 0.5rem 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    font-size: 1rem;
+    padding: 0.5rem;
+    border: 2px solid #333;
+    background: #fff;
+    font-weight: bold;
     cursor: pointer;
-    transition: border-color 0.2s ease;
 }
 
-select:focus {
-    outline: none;
-    border-color: #888;
-}
-
-/* Apparence du sélecteur dans les thèmes sombres */
-body.drae select,
-body.v3 select {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #eee;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-/* Character list */
-#character-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
+/* Liste des personnages */
 #character-list li {
     display: block;
-    padding: 0.75rem 1rem;
-    margin-bottom: 0.75rem;
-    /* Bordure colorée à gauche basée sur la couleur du texte de l'interprète */
-    border-left: 5px solid currentColor;
-    border-radius: 6px;
-    /* Fond clair pour un rendu épuré sur pages claires */
-    background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    /* Les couleurs de texte sont héritées des classes de performer, éviter de les écraser ici */
-    /* Pas de définition de couleur pour ne pas neutraliser les couleurs d'interprète */
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    cursor: default;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    background: #fff;
+    border: 2px solid #eee;
+    border-left-width: 8px; /* Indicateur couleur plus large */
+    transition: all 0.2s ease;
+    font-weight: 500;
+    position: relative;
+    overflow: hidden;
 }
 
-/* Effet de survol pour toutes les listes de personnages */
+/* Effet de survol dynamique */
 #character-list li:hover {
-    background-color: #f9f9f9;
-    transform: translateX(3px);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    transform: translateX(10px);
+    border-color: #000;
+    box-shadow: 5px 5px 0 rgba(0,0,0,0.1);
 }
 
-/* Ajustement des listes pour les thèmes sombres */
-body.drae #character-list li,
-body.v3 #character-list li {
-    background-color: rgba(255, 255, 255, 0.05);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+/* Section Script */
+.script-section {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #f9f9f9;
+    border: 2px dashed #ccc;
 }
 
-/* Survol dans les thèmes sombres */
-body.drae #character-list li:hover,
-body.v3 #character-list li:hover {
-    background-color: rgba(255, 255, 255, 0.15);
-    transform: translateX(3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-}
+/* --- Couleurs des Interprètes --- */
+.nightofkarma { color: var(--color-nightofkarma); border-left-color: var(--color-nightofkarma) !important; }
+.bl00d-samurai { color: var(--color-bl00d-samurai); border-left-color: var(--color-bl00d-samurai) !important; }
+.eisaku { color: var(--color-eisaku); border-left-color: var(--color-eisaku) !important; }
+.papa-ours { color: var(--color-papa-ours); border-left-color: var(--color-papa-ours) !important; }
+.hyozan-lenoobyman { color: var(--color-hyozan); border-left-color: var(--color-hyozan) !important; }
 
-/* Ajout de l'ombrage et de la police sur tous les titres */
-h1, h2, h3 {
-    font-weight: 600;
-}
+/* =========================================
+   THÈMES SPÉCIFIQUES AUX JEUX
+   ========================================= */
 
-/* Performer styles */
-.nightofkarma {
-    color: blueviolet;
-    font-weight: bold;
-}
-
-.bl00d-samurai {
-    color: #e91e63;
-    font-weight: bold;
-}
-
-.eisaku {
-    color: #3f51b5;
-    font-weight: bold;
-}
-
-.papa-ours {
-    color: #4caf50;
-    font-weight: bold;
-}
-
-.hyozan-lenoobyman {
-    color: #ff9800;
-    font-weight: bold;
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-    .nav-links {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-/*
- * Overrides de style par jeu
- * Chaque page de réécriture (DR1, DR2, DRAE, V3) possède une classe de corps
- * correspondante afin d'appliquer un thème visuel inspiré de l'ambiance de
- * chaque épisode de la série. Ces styles n'affectent que les pages qui
- * déclarent explicitement la classe sur l'élément <body>.
- */
-
-/* Danganronpa 1 – Trigger Happy Havoc : dégradé rose clair et header fuchsia */
+/* -----------------------------------------
+   Danganronpa 1 : Trigger Happy Havoc
+   Style : Pop Art, Punk, Rose/Noir, Pois
+   ----------------------------------------- */
 body.dr1 {
-    background: linear-gradient(180deg, #ffe6f2 0%, #fffef9 100%);
+    /* Motif à pois rose et gris */
+    background-color: #f0f0f0;
+    background-image: radial-gradient(#ff0055 15%, transparent 16%), radial-gradient(#333 15%, transparent 16%);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
 }
+
 body.dr1 header {
-    background-color: #e91e63;
-}
-body.dr1 nav .nav-links a {
-    background-color: #f8bbd0;
-    color: #333;
-}
-body.dr1 nav .nav-links a:hover {
-    background-color: #f48fb1;
+    background: #ff0055;
+    border-bottom: 5px solid #000;
 }
 
-/* Danganronpa 2 – Goodbye Despair : ambiance tropicale turquoise/jaune */
+body.dr1 header h1 {
+    font-family: "Impact", sans-serif; /* Police lourde */
+    transform: rotate(-2deg); /* Légère inclinaison chaotique */
+    display: inline-block;
+    background: #000;
+    padding: 0.2rem 1rem;
+}
+
+body.dr1 main {
+    border: 4px solid #000;
+    box-shadow: 10px 10px 0 #ff0055; /* Ombre dure rose */
+}
+
+body.dr1 .nav-links li a {
+    background: #000;
+    color: #ff0055;
+    border: 2px solid #fff;
+}
+body.dr1 .nav-links li a:hover {
+    background: #fff;
+    color: #000;
+    border-color: #000;
+}
+
+/* Viseur de pistolet stylisé au survol */
+body.dr1 #character-list li:hover::after {
+    content: "🔫";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+}
+
+/* -----------------------------------------
+   Danganronpa 2 : Goodbye Despair
+   Style : Digital, Tropical, Pixel, Cyan/Jaune
+   ----------------------------------------- */
 body.dr2 {
-    background: linear-gradient(180deg, #e0f7fa 0%, #fffff8 100%);
+    background-color: #00e5ff;
+    /* Grille numérique */
+    background-image:
+            linear-gradient(rgba(255, 255, 255, 0.2) 2px, transparent 2px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.2) 2px, transparent 2px);
+    background-size: 40px 40px;
+    font-family: var(--font-mono); /* Police type terminal */
 }
+
 body.dr2 header {
-    background-color: #009688;
-}
-body.dr2 nav .nav-links a {
-    background-color: #b2dfdb;
-    color: #333;
-}
-body.dr2 nav .nav-links a:hover {
-    background-color: #80cbc4;
+    background: linear-gradient(90deg, #ffff00, #ff00ff); /* Dégradé tropical néon */
+    color: #000;
+    border-bottom: 4px solid #fff;
 }
 
-/* Danganronpa Another Episode – Ultra Despair Girls : thèmes sombres et violets */
+body.dr2 main {
+    border-radius: 15px; /* Coins arrondis style appli */
+    border: 4px solid #fff;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+}
+
+body.dr2 h2 {
+    color: #e91e63;
+    text-transform: uppercase;
+    border-bottom: 3px dashed #00e5ff;
+    padding-bottom: 0.5rem;
+}
+
+body.dr2 .nav-links li a {
+    background: #fff;
+    color: #00e5ff;
+    border-radius: 20px; /* Boutons pilules */
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+}
+
+body.dr2 #character-list li {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: none;
+    background: rgba(255,255,255,0.9);
+}
+body.dr2 #character-list li:hover {
+    background: #ffff00; /* Jaune fluo au survol */
+    color: #000 !important; /* Force le texte en noir */
+    transform: scale(1.02);
+}
+
+/* -----------------------------------------
+   DRAE : Ultra Despair Girls
+   Style : Grunge, Urbain, Violet/Rouge, Mégaphone
+   ----------------------------------------- */
 body.drae {
-    background: linear-gradient(180deg, #4527a0 0%, #311b92 100%);
-    color: #eee;
-}
-body.drae header {
-    background-color: #6a1b9a;
-}
-body.drae nav .nav-links a {
-    background-color: #9575cd;
-    color: #fff;
-}
-body.drae nav .nav-links a:hover {
-    background-color: #7e57c2;
-}
-body.drae #character-list li {
-    /* Couleur de bordure personnalisée sur fond violet n'est plus nécessaire, le style de carte gère la bordure via currentColor */
+    background-color: #1a0528;
+    /* Motif hachuré sombre */
+    background-image: repeating-linear-gradient(45deg, #2a0a3d 0, #2a0a3d 10px, #1a0528 10px, #1a0528 20px);
+    color: #ddd;
 }
 
-/* Ajuster l'apparence du conteneur principal pour les pages sombres (DRAE et V3).
-   La boîte principale adopte un fond semi-transparent foncé et des bords
-   ombragés pour améliorer la lisibilité sur les arrière‑plans très colorés. */
+body.drae header {
+    background: #4a148c;
+    border-bottom: 4px solid #d50000; /* Rouge sang */
+}
+
 body.drae main {
-    /* Conteneur principal semi‑opaque sur fond sombre, avec bordure légère pour un rendu professionnel */
-    background-color: rgba(0, 0, 0, 0.45);
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid #6a1b9a;
+    box-shadow: 0 0 0 4px #222, 0 0 20px #000;
+    color: #ccc;
+}
+
+body.drae h2 {
+    color: #d50000;
+    font-family: "Impact", sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 #000;
+}
+
+body.drae .nav-links li a {
+    background: #333;
+    color: #d50000;
+    border: 1px solid #d50000;
+    font-family: "Courier New", monospace;
+}
+body.drae .nav-links li a:hover {
+    background: #d50000;
+    color: #fff;
+    box-shadow: 0 0 10px #d50000;
+}
+
+body.drae select {
+    background: #333;
+    color: #fff;
+    border-color: #6a1b9a;
+}
+
+body.drae #character-list li {
+    background: #222;
+    border: 1px solid #444;
+    color: #eee; /* Texte clair par défaut */
+}
+body.drae #character-list li:hover {
+    background: #333;
+    border-color: #d50000;
+    transform: translateX(5px) rotate(0.5deg); /* Léger déséquilibre */
+}
+
+/* -----------------------------------------
+   Danganronpa V3 : Killing Harmony
+   Style : Psycho-Cool, Futuriste, Vert Acide/Noir
+   ----------------------------------------- */
+body.v3 {
+    background-color: #111;
+    /* Lignes tech futuristes */
+    background-image:
+            linear-gradient(0deg, transparent 24%, rgba(173, 255, 47, .1) 25%, rgba(173, 255, 47, .1) 26%, transparent 27%, transparent 74%, rgba(173, 255, 47, .1) 75%, rgba(173, 255, 47, .1) 76%, transparent 77%, transparent),
+            linear-gradient(90deg, transparent 24%, rgba(173, 255, 47, .1) 25%, rgba(173, 255, 47, .1) 26%, transparent 27%, transparent 74%, rgba(173, 255, 47, .1) 75%, rgba(173, 255, 47, .1) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
     color: #eee;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    font-family: "Segoe UI", sans-serif;
+}
+
+body.v3 header {
+    background: #0a0a0a;
+    border-bottom: 3px solid #ccff00; /* Vert acide signature V3 */
+}
+
+body.v3 header h1 {
+    color: #ccff00;
+    font-weight: 300;
+    letter-spacing: 4px;
 }
 
 body.v3 main {
-    background-color: rgba(0, 0, 0, 0.45);
-    color: #eee;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+    background: rgba(10, 20, 30, 0.9);
+    border: 2px solid #ccff00;
+    box-shadow: 0 0 15px rgba(204, 255, 0, 0.2);
+    /* Coupe les coins pour un effet Sci-Fi */
+    clip-path: polygon(
+            0 0,
+            100% 0,
+            100% calc(100% - 20px),
+            calc(100% - 20px) 100%,
+            0 100%
+    );
 }
 
-/* Danganronpa V3 – Killing Harmony : palette sombre et turquoise */
-body.v3 {
-    background: linear-gradient(180deg, #263238 0%, #37474f 100%);
-    color: #eee;
+body.v3 h2, body.v3 h3 {
+    color: #00e5ff; /* Bleu électrique secondaire */
+    border-left: 5px solid #ccff00;
+    padding-left: 1rem;
 }
-body.v3 header {
-    background-color: #00695c;
+
+body.v3 .nav-links li a {
+    background: transparent;
+    border: 1px solid #ccff00;
+    color: #ccff00;
+    font-family: sans-serif;
+    letter-spacing: 1px;
 }
-body.v3 nav .nav-links a {
-    background-color: #009688;
-    color: #fff;
+body.v3 .nav-links li a:hover {
+    background: #ccff00;
+    color: #000;
+    box-shadow: 0 0 15px #ccff00;
 }
-body.v3 nav .nav-links a:hover {
-    background-color: #00796b;
+
+body.v3 select {
+    background: #000;
+    color: #ccff00;
+    border: 1px solid #ccff00;
 }
+
 body.v3 #character-list li {
-    /* Couleur de bordure spécifique supprimée ; la bordure de gauche est basée sur la couleur du texte */
+    background: rgba(255,255,255,0.05);
+    border: none;
+    border-left: 4px solid; /* Utilise la couleur de l'interprète */
+    margin-bottom: 5px;
+}
+
+body.v3 #character-list li:hover {
+    background: rgba(204, 255, 0, 0.1);
+    transform: scale(1.01) translateX(5px);
+    box-shadow: -2px 0 10px rgba(204, 255, 0, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    main { padding: 1rem; margin: 1rem; }
+    .nav-links { flex-direction: column; }
+    body.dr1 header h1 { font-size: 1.5rem; }
 }
