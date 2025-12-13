@@ -1,0 +1,130 @@
+/*
+ * Feuille de style principale pour le projet ReDanganronpa.
+ * Elle définit la typographie générale, la mise en page et les
+ * couleurs associées à chaque interprète. Les classes de couleur
+ * permettent d'identifier rapidement le participant attribué à un
+ * personnage.
+ */
+
+/* Base layout */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #222;
+    color: #fff;
+    padding: 1rem;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+    text-align: center;
+}
+
+nav {
+    margin-top: 0.5rem;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.nav-links li a:hover {
+    background-color: #444;
+}
+
+main {
+    padding: 1rem;
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+footer {
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+/* Section styles */
+.intro p {
+    margin-bottom: 1rem;
+}
+
+/* Filter dropdown */
+.filter {
+    margin-bottom: 1rem;
+}
+
+.filter label {
+    margin-right: 0.5rem;
+}
+
+select {
+    padding: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Character list */
+#character-list {
+    list-style: none;
+    padding: 0;
+}
+
+#character-list li {
+    padding: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+/* Performer styles */
+.bl00d-samurai {
+    color: #e91e63;
+    font-weight: bold;
+}
+
+.eisaku {
+    color: #3f51b5;
+    font-weight: bold;
+}
+
+.papa-ours {
+    color: #4caf50;
+    font-weight: bold;
+}
+
+.hyozan-lenoobyman {
+    color: #ff9800;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+}
