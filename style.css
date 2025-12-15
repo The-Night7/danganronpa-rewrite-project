@@ -139,7 +139,7 @@ select {
     transition: all 0.2s ease;
     font-weight: 500;
     position: relative;
-    /* Laisse déborder la popup hors du conteneur */
+    /* Laisse déborder les popups en dehors de la ligne du personnage */
     overflow: visible;
 }
 
@@ -411,20 +411,16 @@ body.v3 #character-list li:hover {
 }
 
 /* ============================================================
-   Fenêtre contextuelle d'information sur les personnages
+   Fenêtres contextuelles pour les personnages
    ------------------------------------------------------------
-   Lorsqu'on clique sur un nom dans la liste, une petite
-   fenêtre incrustée contenant des informations clés s'affiche
-   sous l'élément. Cette fenêtre utilise un style inspiré par
-   l'identité visuelle de chaque page et se ferme lorsqu'on
-   clique en dehors d'elle ou qu'on sélectionne un autre
-   personnage.
+   Les popups apparaissent lorsqu'on clique sur un nom de personnage.
+   Elles sont insérées à l'intérieur de l'élément de liste et
+   affichent des informations détaillées lorsqu'elles sont
+   disponibles. Les couleurs et ombres varient selon le thème.
 */
+
+/* Base de la popup */
 .character-popup {
-    /* Affichage en bloc dans l'élément listé : la fenêtre contextuelle
-       apparaît sous le texte du personnage. On utilise une position
-       relative afin d'éviter des soucis de débordement et de calcul
-       de coordonnées qui dépend de l'environnement. */
     position: relative;
     display: block;
     margin-top: 0.6rem;
@@ -449,7 +445,12 @@ body.v3 #character-list li:hover {
     margin: 0.2rem 0;
 }
 
-/* Thèmes spécifiques pour la popup en fonction de la page actuelle */
+.character-popup a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* Popups spécifiques à chaque thème */
 body.dr1 .character-popup {
     background: #fff;
     color: #000;

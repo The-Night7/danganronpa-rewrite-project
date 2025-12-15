@@ -1,8 +1,12 @@
 /*
- * script.js – Gère l'interaction simple des pages de personnages.
- * La fonction principale filtre l'affichage des personnages en fonction
- * de l'interprète sélectionné dans la liste déroulante. Chaque liste
- * déroulante appelle filterCharacters(this) via l'attribut onchange.
+ * script.js – Gère les interactions sur les pages de personnages du projet de réécriture Danganronpa.
+ *
+ * - La fonction filterCharacters() permet de filtrer la liste en fonction de
+ *   l'interprète sélectionné dans le menu déroulant.
+ * - La fonction initialiseCharacterPopups() ajoute des popups contextuelles
+ *   au clic sur chaque personnage. Ces popups affichent des informations
+ *   détaillées lorsqu'elles sont disponibles dans le dictionnaire characterData,
+ *   sinon un message par défaut.
  */
 
 /**
@@ -11,10 +15,9 @@
  * @param {HTMLSelectElement} selectEl L'élément select qui déclenche l'événement.
  */
 function filterCharacters(selectEl) {
-    // La valeur sélectionnée correspond soit à «all» soit à une classe de performer
+    // La valeur sélectionnée correspond soit à « all » soit à une classe d'interprète
     const performer = selectEl.value;
-    // On cherche le conteneur de liste le plus proche associé à ce select
-    // pour éviter d'impacter les autres pages.
+    // Cherche le conteneur de liste le plus proche associé à ce select
     const container = selectEl.closest('main');
     if (!container) return;
     const list = container.querySelector('#character-list');
@@ -29,72 +32,85 @@ function filterCharacters(selectEl) {
     });
 }
 
-/*
- * Ajoute un comportement de clic sur chaque entrée de personnage afin
- * d'afficher une fenêtre contextuelle avec des informations clés. La
- * fenêtre apparaît sous l'élément cliqué et se ferme si l'utilisateur
- * clique de nouveau dessus ou si une autre entrée est sélectionnée.
+// ====================================================================
+// Données détaillées pour certains personnages spécifiques.
+// Clef : nom du personnage tel qu'il apparaît dans la liste.
+// Valeur : objet contenant une propriété `info` avec du HTML prêt à
+// insérer dans la popup. On peut enrichir ce dictionnaire sans
+// modifier la logique plus bas.
+const characterData = {
+    'Kyoko Kirigiri': {
+        info: `
+            <strong>Âge&nbsp;:</strong> 18&nbsp;ans<br>
+            <strong>Date de naissance&nbsp;:</strong> 6&nbsp;octobre<br>
+            <strong>Nationalité&nbsp;:</strong> Japonaise<br>
+            <strong>Genre&nbsp;:</strong> Femme cisgenre, bisexuelle<br>
+            <strong>Ultime&nbsp;:</strong> Détective (Ultime Détective) – 78<sup>e</sup>&nbsp;promotion de Hope’s Peak<br>
+            <strong>Taille/poids&nbsp;:</strong> 1 m 67, 48&nbsp;kg<br>
+            <strong>Cheveux/yeux&nbsp;:</strong> Violets clairs<br>
+            <strong>Style vestimentaire&nbsp;:</strong> Veste violette, chemise blanche, cravate marron clair, jupe courte, bottes longues et gants<br>
+            <strong>Personnalité&nbsp;:</strong> Froide, discrète et analytique ; passionnée par l’enquête ; évite le contact physique ; peu expressive<br>
+            <strong>Goûts&nbsp;:</strong> Aime les tresses ; déteste la margose et la coriandre ; thalassophobie<br>
+            <strong>Histoire&nbsp;:</strong> Fille de Jin Kirigiri (directeur de Hope’s Peak) et formée par son grand‑père Fuhito ; a surmonté le harcèlement de son ancien patron et a intégré Hope’s Peak en tant que détective<br>
+            <strong>Document complet&nbsp;:</strong> <a href="https://docs.google.com/document/d/18F6KkPIS1WOPWm-kuBAIW6MLtlqgTOKGpl08BVj8WZE/edit?tab=t.0" target="_blank">Lien vers la fiche</a>
+        `
+    }
+};
+
+/**
+ * Initialise les popups contextuelles pour chaque personnage présent dans la liste.
+ * Un clic sur un personnage affiche ou masque la popup associée.
  */
 function initialiseCharacterPopups() {
-    // Sélectionne toutes les listes de personnages présentes sur la page
-    const lists = document.querySelectorAll('#character-list li');
-    lists.forEach(item => {
-        // L'événement est attaché une seule fois par élément
-        item.addEventListener('click', (e) => {
-            // Empêche la propagation pour éviter des clics multiples
+    const items = document.querySelectorAll('#character-list li');
+    items.forEach(item => {
+        item.addEventListener('click', function(e) {
             e.stopPropagation();
-            // Si cet élément possède déjà une popup ouverte, on la retire et on quitte
+            // Si une popup est déjà présente pour cet élément, on la retire et on arrête
             const existing = item.querySelector('.character-popup');
             if (existing) {
                 existing.remove();
                 return;
             }
-            // Ferme toute fenêtre déjà ouverte ailleurs
+            // Ferme les popups ouvertes ailleurs sur la page
             document.querySelectorAll('.character-popup').forEach(p => p.remove());
-            // Détermine le texte à afficher
+            // Prépare les informations à afficher
             const fullText = item.textContent.trim();
+            const separatorIndex = fullText.indexOf('–');
             let name = fullText;
             let performer = '';
-            // Sépare le nom du personnage et l'interprète sur le premier tiret long '–'
-            const separatorIndex = fullText.indexOf('–');
             if (separatorIndex !== -1) {
                 name = fullText.slice(0, separatorIndex).trim();
                 performer = fullText.slice(separatorIndex + 1).trim();
             }
-            // Crée le conteneur de la popup
+            // Création de l'élément popup
             const popup = document.createElement('div');
             popup.classList.add('character-popup');
-            // Contenu principal : nom et interprète
             const titleEl = document.createElement('h4');
             titleEl.textContent = name;
             const performerEl = document.createElement('p');
-            performerEl.innerHTML = performer;
-            // Texte descriptif par défaut. Ce paragraphe pourra être
-            // alimenté avec davantage de données ultérieurement (par exemple
-            // via un attribut data-description ou un dictionnaire). Pour
-            // l'instant, on indique simplement que des informations clés
-            // seront ajoutées.
-            const descriptionEl = document.createElement('p');
-            descriptionEl.textContent = 'Informations clés à propos de ce personnage bientôt disponibles.';
-            // Ajoute les éléments à la popup
+            performerEl.textContent = performer;
             popup.appendChild(titleEl);
             if (performer) popup.appendChild(performerEl);
+            // Description à partir du dictionnaire ou texte par défaut
+            const descriptionEl = document.createElement('p');
+            if (characterData[name] && characterData[name].info) {
+                descriptionEl.innerHTML = characterData[name].info;
+            } else {
+                descriptionEl.textContent = 'Informations clés à propos de ce personnage bientôt disponibles.';
+            }
             popup.appendChild(descriptionEl);
-            // Insère la popup dans l'élément li. Grâce à la
-            // position:relative de la liste (définie dans le CSS), la
-            // fenêtre contextuelle sera positionnée de manière absolue par
-            // rapport à l'élément.
+            // Ajout de la popup à l'élément listé
             item.appendChild(popup);
         });
     });
-    // Ferme la popup si l'utilisateur clique ailleurs sur la page
-    document.addEventListener('click', () => {
+    // Ferme les popups lorsqu'on clique ailleurs sur la page
+    document.addEventListener('click', function() {
         document.querySelectorAll('.character-popup').forEach(p => p.remove());
     });
 }
 
-// Lorsque le DOM est prêt, on initialise les popups. Comme le script est
-// chargé avec l'attribut `defer`, le DOM est disponible à ce moment-là.
-document.addEventListener('DOMContentLoaded', () => {
+// Lance l'initialisation des popups une fois que le DOM est prêt
+document.addEventListener('DOMContentLoaded', function() {
     initialiseCharacterPopups();
 });
