@@ -139,7 +139,8 @@ select {
     transition: all 0.2s ease;
     font-weight: 500;
     position: relative;
-    overflow: hidden;
+    /* Laisse déborder la popup hors du conteneur */
+    overflow: visible;
 }
 
 /* Effet de survol dynamique */
@@ -407,6 +408,77 @@ body.v3 #character-list li:hover {
     background: rgba(204, 255, 0, 0.1);
     transform: scale(1.01) translateX(5px);
     box-shadow: -2px 0 10px rgba(204, 255, 0, 0.2);
+}
+
+/* ============================================================
+   Fenêtre contextuelle d'information sur les personnages
+   ------------------------------------------------------------
+   Lorsqu'on clique sur un nom dans la liste, une petite
+   fenêtre incrustée contenant des informations clés s'affiche
+   sous l'élément. Cette fenêtre utilise un style inspiré par
+   l'identité visuelle de chaque page et se ferme lorsqu'on
+   clique en dehors d'elle ou qu'on sélectionne un autre
+   personnage.
+*/
+.character-popup {
+    /* Affichage en bloc dans l'élément listé : la fenêtre contextuelle
+       apparaît sous le texte du personnage. On utilise une position
+       relative afin d'éviter des soucis de débordement et de calcul
+       de coordonnées qui dépend de l'environnement. */
+    position: relative;
+    display: block;
+    margin-top: 0.6rem;
+    z-index: 50;
+    max-width: 320px;
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #000;
+    background: #fff;
+    box-shadow: var(--shadow-hard);
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.character-popup h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.character-popup p {
+    margin: 0.2rem 0;
+}
+
+/* Thèmes spécifiques pour la popup en fonction de la page actuelle */
+body.dr1 .character-popup {
+    background: #fff;
+    color: #000;
+    border-color: #ff0055;
+    box-shadow: 4px 4px 0 #ff0055;
+}
+
+body.dr2 .character-popup {
+    background: rgba(255, 255, 255, 0.95);
+    color: #000;
+    border-color: #ffff00;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+body.drae .character-popup {
+    background: #2d104a;
+    color: #eee;
+    border-color: #d50000;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+}
+
+body.v3 .character-popup {
+    background: #0f1f2e;
+    color: #ccff00;
+    border-color: #ccff00;
+    box-shadow: 0 6px 15px rgba(204, 255, 0, 0.25);
+    border-radius: 4px;
 }
 
 /* Responsive */
